@@ -3,16 +3,10 @@ package com.example.quick_math
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quick_math.presentation.end_screen.EndScreen
 import com.example.quick_math.presentation.game_screen.GameScreen
 import com.example.quick_math.presentation.start_screen.StartScreen
 import com.example.quick_math.ui.theme.QuickmathTheme
@@ -23,8 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-
-            QuickmathTheme() {
+            QuickmathTheme {
                 NavHost(
                     navController = navController,
                     startDestination = Screen.StartScreen.route
@@ -54,7 +47,9 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = Screen.EndScreen.route
                     ) {
-
+                        EndScreen(
+                            navController = navController
+                        )
                     }
                 }
             }

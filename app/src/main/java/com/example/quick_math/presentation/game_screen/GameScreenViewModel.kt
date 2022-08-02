@@ -13,7 +13,7 @@ class GameScreenViewModel: ViewModel() {
 
     var state by mutableStateOf(GameScreenState())
 
-    var isSecondNumberRight by mutableStateOf(false)
+    private var isSecondNumberRight by mutableStateOf(false)
 
     val durationForEachQuestion = 2500L
 
@@ -30,9 +30,11 @@ class GameScreenViewModel: ViewModel() {
                 if(isAnswerTrue) {
                     state.score.value++
                     countDownTimer?.cancel()
+                    state.isStarted.value = true
                     getNextQuestion()
                 } else {
                     Log.d("GameScreen", "Lost")
+                    state.progress.value = 0f
                 }
             }
         }
@@ -66,16 +68,16 @@ class GameScreenViewModel: ViewModel() {
     }
 
     private fun startTimer() {
-        countDownTimer = object: CountDownTimer(durationForEachQuestion, 50L) {
-            override fun onTick(p0: Long) {
-                Log.d("GameScreen", "p0: ${p0.toFloat()/durationForEachQuestion.toFloat()}")
-                state.progress.value = p0.toFloat()/durationForEachQuestion.toFloat()
-            }
+        if (state.isStarted.value) {
+            countDownTimer = object: CountDownTimer(durationForEachQuestion, 50L) {
+                override fun onTick(p0: Long) {
+                    state.progress.value = p0.toFloat()/durationForEachQuestion.toFloat()
+                }
 
-            override fun onFinish() {
-                Log.d("GameScreen", "Finish")
-                state.progress.value = 0f
-            }
-        }.start()
+                override fun onFinish() {
+                    state.progress.value = 0f
+                }
+            }.start()
+        }
     }
 }

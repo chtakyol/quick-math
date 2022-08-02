@@ -2,8 +2,8 @@ package com.example.quick_math.presentation.game_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +15,7 @@ import com.example.quick_math.presentation.game_screen.components.AnswerButton
 import com.example.quick_math.presentation.game_screen.components.AnswerButtonType
 import com.example.quick_math.presentation.game_screen.components.CustomProgressBar
 import com.example.quick_math.presentation.game_screen.components.ScoreText
+import com.example.quick_math.utils.Screen
 
 @Composable
 fun GameScreen(
@@ -22,6 +23,11 @@ fun GameScreen(
     navController: NavController = rememberNavController()
 ) {
     val backgroundColor = Color(0xFFF0D9FF)
+    var x by remember { mutableStateOf(true) }
+    if (viewModel.state.progress.value == 0f && x) {
+        navController.navigate(Screen.EndScreen.route)
+        x = false
+    }
 
     Column(
         modifier = Modifier

@@ -7,5 +7,6 @@ data class GameScreenState(
     var score: MutableState<Int> = mutableStateOf(0),
     var progress: MutableState<Float> = mutableStateOf(1f),
     val firstNumberAsText: String = "",
-    val secondNumberAsText: String = ""
+    val secondNumberAsText: String = "",
+    var isStarted: MutableState<Boolean> = mutableStateOf(false)
 )
