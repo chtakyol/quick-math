@@ -9,8 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.quick_math.data.LocalUserStatisticsRepositoryImpl
 import com.example.quick_math.presentation.game_screen.components.AnswerButton
 import com.example.quick_math.presentation.game_screen.components.AnswerButtonType
 import com.example.quick_math.presentation.game_screen.components.CustomProgressBar
@@ -19,7 +21,7 @@ import com.example.quick_math.utils.Screen
 
 @Composable
 fun GameScreen(
-    viewModel: GameScreenViewModel = viewModel(),
+    viewModel: GameScreenViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {
     val backgroundColor = Color(0xFFF0D9FF)

@@ -11,7 +11,9 @@ import com.example.quick_math.presentation.game_screen.GameScreen
 import com.example.quick_math.presentation.start_screen.StartScreen
 import com.example.quick_math.ui.theme.QuickmathTheme
 import com.example.quick_math.utils.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

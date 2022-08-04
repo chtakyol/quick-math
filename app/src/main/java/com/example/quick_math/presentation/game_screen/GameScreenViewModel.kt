@@ -6,10 +6,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.quick_math.domain.IStatisticsRepository
 import com.example.quick_math.utils.QuestionCreator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
-class GameScreenViewModel: ViewModel() {
+@HiltViewModel
+class GameScreenViewModel @Inject constructor(
+    private val userStatisticsRepository: IStatisticsRepository
+) : ViewModel() {
 
     var state by mutableStateOf(GameScreenState())
 
@@ -19,8 +27,18 @@ class GameScreenViewModel: ViewModel() {
 
     private var countDownTimer: CountDownTimer? = null
 
+    private var highScore = 0
+
     init {
         getNextQuestion()
+        viewModelScope.launch {
+            userStatisticsRepository.getStatistics(
+                onSuccess = {
+                    highScore = it.highScore
+                },
+                onError = {}
+            )
+        }
     }
 
     fun onEvent(event: GameScreenEvent) {
@@ -34,6 +52,15 @@ class GameScreenViewModel: ViewModel() {
                     getNextQuestion()
                 } else {
                     Log.d("GameScreen", "Lost")
+                    if (state.score.value > highScore) {
+                        viewModelScope.launch {
+                            userStatisticsRepository.updateStatistics(
+                                highScore = state.score.value,
+                                onSuccess = {},
+                                onError = {}
+                            )
+                        }
+                    }
                     state.progress.value = 0f
                 }
             }
