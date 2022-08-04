@@ -24,8 +24,8 @@ fun EndScreen(
 
     Column {
         ScoreBoard(
-            currentScore = viewModel.state.currentScore,
-            highScore = viewModel.highScore
+            currentScore = viewModel.state.currentScore.value,
+            highScore = viewModel.state.bestScore.value
         )
         
         Spacer(

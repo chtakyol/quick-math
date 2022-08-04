@@ -9,6 +9,7 @@ interface IStatisticsRepository {
 
     suspend fun updateStatistics(
         highScore: Int,
+        currentScore: Int,
         onSuccess: (isRecord: Boolean) -> Unit,
         onError: (Exception) -> Unit
     )

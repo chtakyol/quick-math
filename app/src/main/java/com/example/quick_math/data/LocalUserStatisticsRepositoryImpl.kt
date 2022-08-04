@@ -28,6 +28,7 @@ class LocalUserStatisticsRepositoryImpl(
 
     override suspend fun updateStatistics(
         highScore: Int,
+        currentScore: Int,
         onSuccess: (isRecord: Boolean) -> Unit,
         onError: (Exception) -> Unit
     ) = withContext(Dispatchers.IO) {
@@ -41,6 +42,11 @@ class LocalUserStatisticsRepositoryImpl(
                         .build()
                 }
             }
+            dataStore.updateData { stats ->
+                stats.toBuilder()
+                    .setCurrentScore(currentScore)
+                    .build()
+            }
             onSuccess(true)
         } catch (e: Exception) {
             onError(e)
@@ -49,7 +55,8 @@ class LocalUserStatisticsRepositoryImpl(
 
     private val Statistics.toUserStatistics: UserStatistics get() {
         return UserStatistics(
-            this.highScore
+            this.highScore,
+            this.currentScore
         )
     }
 }

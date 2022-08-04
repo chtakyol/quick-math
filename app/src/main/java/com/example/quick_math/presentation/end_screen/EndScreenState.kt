@@ -4,6 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
 data class EndScreenState(
-    var currentScore: Int = 0,
-    var bestScore: Int = 0
+    var currentScore: MutableState<Int> =  mutableStateOf(0),
+    var bestScore: MutableState<Int> =  mutableStateOf(0)
 )

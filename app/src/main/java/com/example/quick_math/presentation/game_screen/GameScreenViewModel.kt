@@ -35,6 +35,8 @@ class GameScreenViewModel @Inject constructor(
             userStatisticsRepository.getStatistics(
                 onSuccess = {
                     highScore = it.highScore
+                    Log.d("GameScreen", "high score ${it.highScore}")
+                    Log.d("GameScreen", "current score ${it.currentScore}")
                 },
                 onError = {}
             )
@@ -52,16 +54,7 @@ class GameScreenViewModel @Inject constructor(
                     getNextQuestion()
                 } else {
                     Log.d("GameScreen", "Lost")
-                    if (state.score.value > highScore) {
-                        viewModelScope.launch {
-                            userStatisticsRepository.updateStatistics(
-                                highScore = state.score.value,
-                                onSuccess = {},
-                                onError = {}
-                            )
-                        }
-                    }
-                    state.progress.value = 0f
+                    endGame()
                 }
             }
         }
@@ -102,9 +95,32 @@ class GameScreenViewModel @Inject constructor(
                 }
 
                 override fun onFinish() {
+                    endGame()
                     state.progress.value = 0f
                 }
             }.start()
         }
+    }
+
+    private fun endGame() {
+        viewModelScope.launch {
+            userStatisticsRepository.updateStatistics(
+                highScore = highScore,
+                currentScore = state.score.value,
+                onSuccess = {},
+                onError = {}
+            )
+        }
+        if (state.score.value > highScore) {
+            viewModelScope.launch {
+                userStatisticsRepository.updateStatistics(
+                    highScore = state.score.value,
+                    currentScore = state.score.value,
+                    onSuccess = {},
+                    onError = {}
+                )
+            }
+        }
+        state.progress.value = 0f
     }
 }
