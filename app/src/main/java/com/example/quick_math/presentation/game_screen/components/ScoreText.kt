@@ -1,5 +1,6 @@
 package com.example.quick_math.presentation.game_screen.components
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -15,7 +16,8 @@ fun ScoreText(
     Text(
         text = "Score: $score",
         color = textColor,
-        fontSize = 24.sp
+        fontSize = 24.sp,
+        style = MaterialTheme.typography.caption
     )
 }
 

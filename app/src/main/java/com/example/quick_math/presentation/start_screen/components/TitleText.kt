@@ -1,5 +1,6 @@
 package com.example.quick_math.presentation.start_screen.components
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -17,7 +18,8 @@ fun TitleText(
     Text(
         text = title,
         fontSize = 64.sp,
-        color = textColor
+        color = textColor,
+        style = MaterialTheme.typography.caption
     )
 }
 

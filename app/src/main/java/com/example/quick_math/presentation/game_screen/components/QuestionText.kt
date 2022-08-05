@@ -1,5 +1,6 @@
 package com.example.quick_math.presentation.game_screen
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -16,7 +17,8 @@ fun QuestionText(
     Text(
         text = text,
         color = textColor,
-        fontSize = 108.sp
+        fontSize = 108.sp,
+        style = MaterialTheme.typography.caption
     )
 }
 

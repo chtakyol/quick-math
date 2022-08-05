@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -56,22 +57,26 @@ fun ScoreBoard(
             Text(
                 text = "current score:",
                 color = textColor,
-                fontSize = 32.sp
+                fontSize = 32.sp,
+                style = MaterialTheme.typography.caption
             )
             Text(
                 text = "$currentScore",
                 color = textColor,
-                fontSize = 64.sp
+                fontSize = 64.sp,
+                style = MaterialTheme.typography.caption
             )
             Text(
                 text = "high score:",
                 color = textColor,
-                fontSize = 32.sp
+                fontSize = 32.sp,
+                style = MaterialTheme.typography.caption
             )
             Text(
                 text = "$highScore",
                 color = textColor,
-                fontSize = 64.sp
+                fontSize = 64.sp,
+                style = MaterialTheme.typography.caption
             )
         }
     }
